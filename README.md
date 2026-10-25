@@ -8,7 +8,19 @@ CSE681: Advanced Digital Image and Video Processing
 - Nour Ayman — 2501913
 
 ## What we tested
-We trained a Fourier-feature MLP to reconstruct a single 128×128 Kodak image, then measured JPEG and HEVC-intra compression on five Kodak images. The saved CSV files are the results of our completed experiments. The neural model is a reconstruction proof of concept, **not yet a compressed codec**.
+
+We tested the Fourier-feature MLP on Kodak image `kodim01.png`, resized to 128 × 128 pixels.
+
+| Experiment | Training Iterations | Final PSNR | Training Time |
+|---|---:|---:|---:|
+| 3,000 iterations | 3,000 | 30.65 dB | 30.65 s |
+| 5,000 iterations | 5,000 | 31.73 dB | 56.70 s |
+
+The results of both experiments are saved in the `results_3000` and `results_5000` folders.
+
+Increasing the training iterations improved the reconstruction quality by approximately 1.08 dB, but required more training time.
+
+Both experiments used a network with 10,627 parameters. The estimated 8-bit weight bitrate is 5.19 bpp, which does not represent an actual compressed bitstream.
 
 ## Setup
 ```powershell
