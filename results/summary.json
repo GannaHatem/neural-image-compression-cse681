@@ -1,0 +1,10 @@
+{
+  "device": "cpu",
+  "parameters": 10627,
+  "estimated_8bit_weight_bpp": 5.18896484375,
+  "checkpoint_bytes_not_compressed_bitstream": 46544,
+  "image_size": 128,
+  "steps": 5000,
+  "elapsed_seconds": 56.69851949999975,
+  "note": "Neural bpp is an estimate only, not an actual compressed codec. No decoder/quantization implemented."
+}
