@@ -5,7 +5,13 @@
 \usepackage[round]{natbib}
 \usepackage[colorlinks=true,urlcolor=blue,citecolor=blue]{hyperref}
 \title{Progress Report\\[4pt]\large Single-Image / Single-Video Overfit Neural Compression\\Implicit Neural Codec -- Project 3}
-\author{Ganna Hatem Deghady \and Gannah Mohamed Ghamry \and Nour Ayman AbouElMakarem }
+\author{
+Ganna Hatem Deghady\\2500014
+\and
+Gannah Mohamed Ghamry\\2501779
+\and
+Nour Ayman AbouElMakarem\\2501913
+}
 \date{Milestone 2 -- November 15, 2026\\CSE681 -- Digital Image Processing}
 \begin{document}
 \maketitle
@@ -20,6 +26,9 @@ for reproducing the experiments are available at:
 \url{https://github.com/GannaHatem/neural-image-compression-cse681}.
 \section{Implementation Status}
 \subsection{Baseline Reproduction}
+We evaluate on the Kodak image suite \citep{kodak},
+using JPEG \citep{jpeg} and HEVC-intra \citep{hevc}
+as classical baselines.
 Both classical baselines use the same 8-bit RGB reference images as the neural experiments, without resizing or cropping. JPEG uses Pillow at qualities 1, 3, 5, 10, 20, 30, 50, 70, and 90 with chroma subsampling disabled. HEVC uses FFmpeg/libx265, the medium preset, yuv444p, and one intra-coded frame at CRF 10, 20, 30, 40, 45, and 51. The x265 settings specify keyint=1, min-keyint=1, scenecut=0, pools=4, and frame-threads=1. The FFmpeg version output is included in the package. HEVC is converted back to RGB before quality measurement; its RGB/YUV conversion is part of the baseline pipeline.
 
 JPEG rate counts the complete JPEG file. HEVC rate counts the raw HEVC stream, including parameter-set headers. Results comprise 216 JPEG records and 144 HEVC records.
@@ -74,6 +83,26 @@ HEVC-intra & CRF=30 & 0.9267 & 35.51\\\bottomrule
 \end{table}
 \begin{figure}[ht]\centering\includegraphics[width=\linewidth]{rd_all.pdf}
 \caption{Measured RD curves. Each point averages all 24 Kodak images. Neural curves vary weight precision within one width. Lines connect sampled operating points and do not imply exact matched-rate measurements.}\end{figure}
+\subsection{Interpolated Matched-Rate Comparison}
+
+For each image and neural configuration, baseline RGB
+PSNR was linearly interpolated between measured baseline
+points at the neural codec's actual bitrate.
+No extrapolation was used. Configurations outside the
+measured baseline range were excluded, and the number
+of supported images is reported for each comparison.
+Positive PSNR differences favor the neural codec;
+negative differences favor the baseline.
+
+\input{matched_bpp_table}
+At width 64 with 10-bit weights, the neural codec
+exceeds interpolated JPEG PSNR by 1.06 dB on the
+21 supported images. However, HEVC-intra performs
+better on every evaluated neural configuration
+within the supported rate range. Coverage differs
+between configurations, so these averages must
+not be interpreted as comparisons over identical
+image subsets.
 \subsection{Findings}
 Increasing width improves reconstruction quality, but increases rate and fitting time. At 8 bits, moving from width 32 to 128 raises mean PSNR by 2.89 dB while raising mean bitrate from 0.0842 to 0.7838 bpp. The measured training total across the 72 fits is 40.08 minutes. Training must not be counted three times for the three weight precisions. Mean neural decoding times range from approximately 0.17 to 0.61 s across the settings.
 
