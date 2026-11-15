@@ -1,3 +1,11 @@
+## Milestone 2
+
+The full-resolution Kodak experiments, neural codec,
+JPEG/HEVC baselines, results, and progress report are
+available in the [Milestone 2 folder](Milestone%202/).
+
+[Read the Milestone 2 report](Milestone%202/M2_Progress_Report.pdf)
+
 # Project 3 — Neural Image Compression (Milestone 1)
 
 CSE681: Advanced Digital Image and Video Processing
